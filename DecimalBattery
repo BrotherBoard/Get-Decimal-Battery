@@ -1,0 +1,10 @@
+#copy the charge counter to your sdcard
+cp /sys/class/power_supply/battery/charge_counter /storage/emulated/0
+#choose sdcard directory
+cd /storage/emulated/0
+#show a basic line of text
+echo your battery percentage is
+#name the variable board as the charge counter copied before
+board=`cat charge_counter`
+#divide the board variable by 30,000 and show the result
+echo "scale=1; $board / 30000" | bc
