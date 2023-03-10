@@ -24,3 +24,5 @@ now the variable should be ready for displaying
 
 shows the percentage under the "your battery percentage" line
 XX.X (ex. 68.9)
+
+Tested on the Galaxy A10 running Android 13 Arm64
