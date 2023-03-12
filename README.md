@@ -1,28 +1,13 @@
 # Decimal-Battery
-get your battery capacity up to one decimal number.
+Show a shell notification of your decimal battery level.
 
-do `bash DecimalBattery` in some terminal
+**Tested on the Galaxy A10 running Android 13 Arm64**
 
-How it works:
+do `bash DecimalBattery` in some terminal to proceed
 
-copies the file from
-/sys/class/power_supply/battery/charge_counter
-to
-/storage/emulated/0
+**Version history**
 
-chooses directory
-/storage/emulated/0
+v2.0 release, literally 3 days after.
+now it's a notification instead of terminal output.
 
-shows a text of
-your battery percentage is
-
-by naming a variable with the text inside the file we copied
-value of the variable "board" is based on the text inside file
-
-divide the variable by 30,000
-now the variable should be ready for displaying
-
-shows the percentage under the "your battery percentage" line
-XX.X (ex. 68.9)
-
-Tested on the Galaxy A10 running Android 13 Arm64
+v1.0 release, main release, simple and shows output in terminal
