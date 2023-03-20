@@ -1,10 +1,159 @@
-#copy the charge counter to your sdcard
-cp /sys/class/power_supply/battery/charge_counter /storage/emulated/0
-#choose sdcard directory
-cd /storage/emulated/0
+#Decimal Battery v2.0
+#By @BrudherBoard on Telegram
+
+#clean the screen
+clear
+
+#default vars
+directory=/storage/emulated/0
+counter="charge_count"
+wait=60
+
+#important vars
+counter_directory=$directory
+customsetup=0
+yeswait=0
+onlynumbersallowed='^[0-9]+$'
+launchedasdefault=1
+
+#Menu
+echo "Decimal Battery v2.0"
+echo "--------------------"
+echo "∆∆∆ Setup"
+echo
+echo "1-> Default Setup"
+echo "2-> Custom Setup"
+echo
+read -e -p ">>>" MENU
+if [ $MENU == 1 ]
+then
+   echo "Applying Default Setup"
+   sleep 1.5
+   launchedasdefault=1
+elif [ $MENU == 2 ]
+then
+   echo "Loading Custom Setup"
+   customsetup=1
+else
+   echo "enter a number from above bruh"
+   exit
+fi
+
+if [ $customsetup == 1 ]
+then
+   clear
+   echo "Custom Setup"
+   echo "Enter working directory"
+   echo "Working directory is the place where files"
+   echo "will be made"
+   echo
+   echo "Default directory is $directory"
+   echo "Leave blank for default"
+   read -e -p ">>>" directory
+   if [ -z $directory ]
+   then
+      directory="/storage/emulated/0"
+   fi
+   if [[ $directory = /* ]]
+   then
+      echo "Using directory $directory"
+      sleep 1.5
+      yeswait=1
+   else
+      echo "no bruh, directory must start with /"
+      exit
+   fi
+fi
+
+if [ $yeswait == 1 ]
+then
+   clear
+   echo "Custom Setup"
+   echo "Enter wait interval (in seconds)"
+   echo "+ Wait interval is the amount of time to wait"
+   echo "  before refreshing the percentage"
+   echo 
+   echo "default wait is $wait, but i recommend more than 60"
+   echo "if you have 2GB ram or less"
+   echo
+   echo "leave blank for default directory"
+   echo
+   read -e -p ">>>" wait
+   if [ -z $wait ]
+   then
+      wait=60
+      echo "Using default wait value $wait"
+      ok=1
+   else
+   echo Wait value is set to $wait
+   ok=1
+   fi
+fi
+
+if [ $ok == 1 ]
+then
+   if [[ $wait =~ $onlynumbersallowed ]]
+   then
+      echo "We are done!"
+      launchedasdefault=0
+      sleep 1.5
+   else
+      echo "enter the value in numbers only!"
+      exit
+   fi
+fi
+
+#greeting
+clear
+echo "Welcome, Starting!"
+if [ $launchedasdefault == 1 ]
+then
+   echo
+   echo "Running with default settings"
+   echo
+   echo "Working Directory -> $directory"
+   echo "Refresh interval -> $wait"
+   echo
+elif [ $launchedasdefault == 0 ]
+then
+   echo
+   echo "Running with custom settings"
+   echo
+   echo "Working Directory -> $directory"
+   echo "Refresh interval -> $wait"
+   echo
+fi
+
+#friendly excuse of logs
+echo logs below
+echo --------------------------------
+
+#copy the charge counter to your desired $directory
+cp /sys/class/power_supply/battery/charge_counter $directory
+
+#change directory to your $directory
+cd $directory
+
+#create helper file
+touch helper
+
+#rename charge_counter to your desired $counter
+mv charge_counter $counter
+
 #show a basic line of text
-echo your battery percentage is
-#name the variable board as the charge counter copied before
-board=`cat charge_counter`
-#divide the board variable by 30,000 and show the result
-echo "scale=1; $board / 30000" | bc
+echo notification service started!
+
+#name the variable board as the $counter we copied
+board=`cat $counter_directory/$counter`
+
+#delete your $counter
+rm -rf $counter
+
+#create a new $counter with the decimal value
+echo "scale=1; $board / 30000" | bc >> helper
+
+#name the variable board as the $counter again
+board=`cat helper`
+
+#send notification; clean up; loop every $wait
+while true; do su -lp 2000 -c "cmd notification post -S bigtext -t 'Battery Percentage' 'DecimalPercentage' '$board'"; rm -rf helper; rm -rf $counter_directory/$counter; sleep $wait; done;
