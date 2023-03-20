@@ -9,5 +9,6 @@ do `bash DecimalBattery` in some terminal to proceed
 
 v2.0 release, literally 3 days after.
 now it's a notification instead of terminal output.
+warning, needs root from now on. use pre release instead.
 
 v1.0 release, main release, simple and shows output in terminal
