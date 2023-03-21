@@ -1,47 +1,142 @@
 #Decimal Battery v2.0
 #By @BrudherBoard on Telegram
 
-#clean the screen
+#first clean up
 clear
 
 #default vars
 directory=/storage/emulated/0
-counter="charge_count"
+counter="charge_counter"
 wait=60
 
 #important vars
-counter_directory=$directory
+counter_directory=/sys/class/power_supply/battery
 customsetup=0
 yeswait=0
 onlynumbersallowed='^[0-9]+$'
-launchedasdefault=1
+launchedasdefault=2
+root1="null"
+success=0
+plox="plox set var of me"
+royna=2
+one=1
+textonly=0
+exithint="Type exit to end this script"
+fishhint="Press enter to refresh"
+yrbatt="Your battery percentage is"
+clearhint="Type clear to clear the logs"
 
-#Menu
+#Method Prompt
+echo
 echo "Decimal Battery v2.0"
 echo "--------------------"
-echo "∆∆∆ Setup"
+echo "Choose Method"
 echo
-echo "1-> Default Setup"
-echo "2-> Custom Setup"
+echo "1-> Notification [ROOT]"
+echo "2-> Notification [No ROOT] ∆BETA∆"
+echo "3-> Text Only [No ROOT]"
+echo 
+echo "0-> Musti have root?"
 echo
-read -e -p ">>>" MENU
-if [ $MENU == 1 ]
+read -e -p ">>>" prompt
+
+if [[ $prompt == 0 ]]
 then
-   echo "Applying Default Setup"
-   sleep 1.5
-   launchedasdefault=1
-elif [ $MENU == 2 ]
-then
-   echo "Loading Custom Setup"
-   customsetup=1
-else
-   echo "enter a number from above bruh"
+   echo "Well, actually root is optional though"
+   echo "You can still get your battery percentage"
+   echo "with 2 available NoRoot methods, so just try."
+   sleep 3
    exit
+
+elif [[ $prompt == 1 ]]
+then
+   clear
+   root1=1
+   plox="ROOT"
+   royna=1
+elif [[ $prompt == 2 ]]
+then
+   clear
+   plox="No ROOT"
+   royna=0
+   root1=0
+elif [[ $prompt == 3 ]]
+then
+   clear
+   root1=3
+   royna=3
+   plox="Text Only"
+else
+   echo "wdym $prompt ? i need a number from above"
+   sleep 1.5
+   exit
+fi
+
+#NoRoot Method
+if [ $root1 == 1 ]
+then
+clear
+echo "Loading ROOT Method..."
+sleep 1.5
+clear
+fishhint="Should work now tho"
+fi
+
+#Root
+if [ $root1 == 0 ]
+then
+clear
+echo "Loading No ROOT Method..."
+sleep 1.5
+clear
+fishhint="Should work now tho"
+fi
+
+#Text Only
+if [[ $root1 == 3 ]]
+then
+   textonly=1
+   clear
+   echo
+   echo "Loading Text Only Method..."
+   sleep 1.5
+   clear
+fi
+
+#Universal
+if [ $one == 1 ]
+then
+   echo
+   echo "Decimal Battery v2.0 [$plox]"
+   echo "---------------------------"
+   echo "∆∆∆ Setup"
+   echo
+   echo "1-> Default Setup"
+   echo "2-> Custom Setup"
+   echo
+   read -e -p ">>>" MENU
+   if [ $MENU == 1 ]
+   then
+      clear
+      clear
+      echo "Applying Default Setup"
+      sleep 1.5
+      success=1
+      launchedasdefault=1
+   elif [ $MENU == 2 ]
+   then
+      echo "Loading Custom Setup"
+      customsetup=1
+   else
+      echo "enter a number from above bruh"
+      exit
+   fi
 fi
 
 if [ $customsetup == 1 ]
 then
    clear
+   echo
    echo "Custom Setup"
    echo "Enter working directory"
    echo "Working directory is the place where files"
@@ -68,6 +163,7 @@ fi
 if [ $yeswait == 1 ]
 then
    clear
+   echo
    echo "Custom Setup"
    echo "Enter wait interval (in seconds)"
    echo "+ Wait interval is the amount of time to wait"
@@ -94,8 +190,8 @@ if [ $ok == 1 ]
 then
    if [[ $wait =~ $onlynumbersallowed ]]
    then
-      echo "We are done!"
       launchedasdefault=0
+      success=1
       sleep 1.5
    else
       echo "enter the value in numbers only!"
@@ -105,55 +201,110 @@ fi
 
 #greeting
 clear
-echo "Welcome, Starting!"
 if [ $launchedasdefault == 1 ]
 then
-   echo
-   echo "Running with default settings"
-   echo
-   echo "Working Directory -> $directory"
-   echo "Refresh interval -> $wait"
-   echo
+   sure="default"
 elif [ $launchedasdefault == 0 ]
 then
+   sure="custom"
+else
+   echo "error, becauselunched as def is neither 1 nor 0, also lmao"
+fi
+
+#running with
    echo
-   echo "Running with custom settings"
+   echo "Running with $sure settings"
    echo
    echo "Working Directory -> $directory"
    echo "Refresh interval -> $wait"
    echo
-fi
+   echo $exithint
+   echo $fishhint
+   echo $clearhint
+   echo
 
 #friendly excuse of logs
 echo logs below
 echo --------------------------------
 
-#copy the charge counter to your desired $directory
-cp /sys/class/power_supply/battery/charge_counter $directory
-
-#change directory to your $directory
-cd $directory
-
-#create helper file
-touch helper
-
-#rename charge_counter to your desired $counter
-mv charge_counter $counter
-
 #show a basic line of text
-echo notification service started!
-
-#name the variable board as the $counter we copied
-board=`cat $counter_directory/$counter`
-
-#delete your $counter
-rm -rf $counter
-
-#create a new $counter with the decimal value
-echo "scale=1; $board / 30000" | bc >> helper
-
-#name the variable board as the $counter again
-board=`cat helper`
+if [ $textonly == 1 ]
+then
+   echo $yrbatt
+else
+   echo  notification service started!!
+fi
 
 #send notification; clean up; loop every $wait
-while true; do su -lp 2000 -c "cmd notification post -S bigtext -t 'Battery Percentage' 'DecimalPercentage' '$board'"; rm -rf helper; rm -rf $counter_directory/$counter; sleep $wait; done;
+if [ $royna == 1 ]
+then
+   while [ $royna == 1 ]
+   do
+   cd $directory
+   rm -rf helper
+   board1=`cat $counter_directory/$counter`
+   echo board1
+   sleep 3
+   echo "scale=1; $board1 / 30000" | bc >> helper
+   board2=`cat helper`
+   rm -rf helper
+   su -lp 2000 -c "cmd notification post -S bigtext -t 'Battery Percentage' 'DecimalPercentage' '$board2'"
+   sleep $wait
+   done
+elif [ $royna == 0 ]
+then
+   while true; do cmd notification post fag tag $board2; sleep $wait; done;
+   echo
+   echo "BETA -Might not work."
+elif [ $textonly == 1 ]
+then
+   rm -rf helper
+   board1=`cat $counter_directory/$counter`
+   echo "scale=1; $board1 / 30000" | bc >> helper
+   board2=`cat helper`
+   rm -rf helper
+   echo $board2
+   letsgo=1
+else
+   echo "ERROR - NOTIFICATION NOT SENT"
+   echo "failed because royna is neither 0 nor 1"
+fi
+
+#enter to refresh system for text only type
+if [[ $letsgo == 1 ]]
+then
+   echo "Enter-To-Refresh service started!"
+   while true
+   do read popo
+   if [ -z $popo ]
+   then
+      rm -rf helper
+      board1=`cat $counter_directory/$counter`
+      echo "scale=1; $board1 / 30000" | bc >> helper
+      board2=`cat helper`
+      rm -rf helper
+      echo $yrbatt
+      echo $board2
+   elif [ $popo == "exit" ]
+   then
+      exit
+   elif [ $popo == "clear" ]
+   then
+      clear
+      echo
+      echo "Running with $sure settings"
+      echo
+      echo "Working Directory -> $directory"
+      echo "Refresh interval -> $wait"
+      echo
+      echo $exithint
+      echo $fishhint
+      echo $clearhint
+      echo
+      echo logs below
+      echo --------------------------------
+   else
+      :
+   fi
+   done
+fi
