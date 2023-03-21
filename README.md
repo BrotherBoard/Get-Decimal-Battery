@@ -1,4 +1,4 @@
-# Decimal-Battery
+# Get-Decimal-Battery
 Show a shell notification of your decimal battery level.
 
 **Tested on the Galaxy A10 running Android 13 Arm64**
