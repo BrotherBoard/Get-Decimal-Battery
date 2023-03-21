@@ -7,7 +7,7 @@ do `bash DecimalBattery` in some terminal to proceed
 
 **Version history**
 
-V3.0 release, nais one here
+v3.0 release, nais one here
 a menu now appears, asking what to show.
 you get to sleect between root and no root notification,
 or just text from terminal.
