@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Decimal Battery v2.0
 #By @BrudherBoard on Telegram
 
@@ -18,46 +20,136 @@ launchedasdefault=2
 root1="null"
 success=0
 plox="plox set var of me"
-royna=2
-one=1
-textonly=0
-exithint="Type exit to end this script"
-fishhint="Press enter to refresh"
+exithint="Type ${WHITERED}exit${ORANGE} to end this script"
+fishhint="Press ${WHITERED}enter${ORANGE} to refresh"
 yrbatt="Your battery percentage is"
-clearhint="Type clear to clear the logs"
+clearhint="Type ${WHITERED}clear${ORANGE} to clean up logs"
+one=1
+royna=1
+newlmao="default"
+
+#main menu
+echo -e "Decimal Battery v2.0"
+echo -e "--------------------"
+echo -e "Choose an action"
+echo
+echo -e "1-> Start Script"
+echo -e "2-> Quick custom start [ROOT method]"
+echo -e "3-> Quick custom start [text only method]"
+echo -e "4-> Exit"
+echo
+read -e -p ">>>" main
+
+if [ $main == 1 ]
+then
+   clear
+   echo "Starting..."
+   sleep 1.1
+   clear
+elif [ $main == 4 ]
+then
+   exit
+elif [ $main == 2 ]
+then
+   clear
+   skipall=1
+elif [ $main == 3 ]
+then
+   clear
+   skipall=1
+   textonly=1
+   royna=3
+else
+   echo "so it's hard to enter a goddamn number"
+   echo "taking your response '$main' as 4 and exitting"
+   exit
+fi
+
+if [[ $skipall == 1 ]]
+then
+:
+else
+#--------------------start of skipper--------------------
+#want colors?
+echo -e "Decimal Battery v2.0"
+echo -e "--------------------"
+echo -e "Want logs in colors?"
+echo
+echo -e "1-> Yes ofc"
+echo -e "2-> No bruh"
+read -e -p ">>>" colorok1
+
+if [[ $colorok1 == 1 ]]
+then
+   colorok2=1
+   clear
+elif
+   [[ $colorok1 == 2 ]]
+then
+   colorok2=0
+   clear
+else
+   echo "i needed a number from above, anyways"
+   echo "taking '$colorok1' you typed as a no"
+   sleep 2
+fi
+
+#enable or disable colors based on colorok2
+if [[ $colorok2 == 1 ]]
+then
+   clear
+   RED='\033[0;31m'
+   GREEN='\033[0;32m'
+   ORANGE='\033[0;33m'
+   BLUE='\033[0;34m'
+   PURPLE='\033[0;35m'
+   CYAN='\033[0;36m'
+   LIGHTGRAY='\033[0;37m'
+   DARKGRAY='\033[1;30m'
+   LIGHTRED='\033[1;31m'
+   LIGHTGREEN='\033[1;32m'
+   YELLOW='\033[1;33m'
+   LIGHTBLUE='\033[1;34m'
+   LIGHTPURPLE='\033[1;35m'
+   LIGHTCYAN='\033[1;36m'
+   WHITERED='\033[1;37m'
+   R='\033[0m'
+   echo -e "${LIGHTGREEN}Decimal Battery v2.0${R}"
+   echo -e "${YELLOW}--------------------${R}"
+   echo -e "${GREEN}Colored logs activated, press any key to continue${YELLOW}"
+   echo
+   read -e -p ">>>" less
+
+fi
+
+if [ -z less ]
+then
+   clear
+else
+   clear
+fi
 
 #Method Prompt
+echo -e "${LIGHTGREEN}Decimal Battery v2.0${R}"
+echo -e "${YELLOW}--------------------${R}"
+echo -e "${GREEN}Choose Method${R}"
 echo
-echo "Decimal Battery v2.0"
-echo "--------------------"
-echo "Choose Method"
-echo
-echo "1-> Notification [ROOT]"
-echo "2-> Notification [No ROOT] ∆BETA∆"
-echo "3-> Text Only [No ROOT]"
-echo 
-echo "0-> Musti have root?"
+echo -e "${CYAN}1-> ${LIGHTRED}ROOT${R}"
+echo -e "${CYAN}2-> ${LIGHTCYAN}No ROOT${R}"
+echo -e "${CYAN}3-> ${DARKGRAY}Text Only${YELLOW}"
 echo
 read -e -p ">>>" prompt
 
-if [[ $prompt == 0 ]]
-then
-   echo "Well, actually root is optional though"
-   echo "You can still get your battery percentage"
-   echo "with 2 available NoRoot methods, so just try."
-   sleep 3
-   exit
-
-elif [[ $prompt == 1 ]]
+if [[ $prompt == 1 ]]
 then
    clear
    root1=1
-   plox="ROOT"
+   plox="${LIGHTRED}ROOT${R}"
    royna=1
 elif [[ $prompt == 2 ]]
 then
    clear
-   plox="No ROOT"
+   plox="${LIGHTCYAN}No ROOT${R}"
    royna=0
    root1=0
 elif [[ $prompt == 3 ]]
@@ -65,7 +157,7 @@ then
    clear
    root1=3
    royna=3
-   plox="Text Only"
+   plox="${DARKGRAY}Text Only${R}"
 else
    echo "wdym $prompt ? i need a number from above"
    sleep 1.5
@@ -76,20 +168,20 @@ fi
 if [ $root1 == 1 ]
 then
 clear
-echo "Loading ROOT Method..."
+echo -e "Loading ${RED}ROOT Method...${R}"
 sleep 1.5
 clear
-fishhint="Should work now tho"
+fishhint="Made by @BrudherBoard on Telegram lmfao"
 fi
 
 #Root
 if [ $root1 == 0 ]
 then
 clear
-echo "Loading No ROOT Method..."
+echo -e "${LIGHTCYAN}Loading No ROOT Method...${R}"
 sleep 1.5
 clear
-fishhint="Should work now tho"
+fishhint="Made by @BrudherBoard on Telegram lmfao"
 fi
 
 #Text Only
@@ -97,7 +189,6 @@ if [[ $root1 == 3 ]]
 then
    textonly=1
    clear
-   echo
    echo "Loading Text Only Method..."
    sleep 1.5
    clear
@@ -106,25 +197,24 @@ fi
 #Universal
 if [ $one == 1 ]
 then
+   echo -e "${LIGHTGREEN}Decimal Battery v2.0 [$plox]"
+   echo -e "${YELLOW}---------------------------"
+   echo -e "${GREEN}∆∆∆ Setup"
    echo
-   echo "Decimal Battery v2.0 [$plox]"
-   echo "---------------------------"
-   echo "∆∆∆ Setup"
-   echo
-   echo "1-> Default Setup"
-   echo "2-> Custom Setup"
+   echo -e "${CYAN}1-> ${LIGHTCYAN}Default Setup"
+   echo -e "${CYAN}2-> ${LIGHTPURPLE}Custom Setup${YELLOW}"
    echo
    read -e -p ">>>" MENU
-   if [ $MENU == 1 ]
+   if [[ $MENU == 1 ]]
    then
       clear
-      clear
-      echo "Applying Default Setup"
+      echo -e "${YELLOW}Applying Default Setup...${R}"
       sleep 1.5
       success=1
       launchedasdefault=1
-   elif [ $MENU == 2 ]
+   elif [[ $MENU == 2 ]]
    then
+      clear
       echo "Loading Custom Setup"
       customsetup=1
    else
@@ -133,17 +223,16 @@ then
    fi
 fi
 
-if [ $customsetup == 1 ]
+if [[ $customsetup == 1 ]]
 then
    clear
-   echo
-   echo "Custom Setup"
-   echo "Enter working directory"
+   echo -e "${LIGHTPURPLE}Custom Setup"
+   echo -e "${CYAN}Enter working directory"
    echo "Working directory is the place where files"
    echo "will be made"
    echo
-   echo "Default directory is $directory"
-   echo "Leave blank for default"
+   echo -e "${LIGHTCYAN}Default directory is $directory${R}"
+   echo -e "${LIGHTCYAN}Leave blank for default${YELLOW}"
    read -e -p ">>>" directory
    if [ -z $directory ]
    then
@@ -151,11 +240,11 @@ then
    fi
    if [[ $directory = /* ]]
    then
-      echo "Using directory $directory"
+      echo -e  "${YELLOW}Using directory $directory${R}"
       sleep 1.5
       yeswait=1
    else
-      echo "no bruh, directory must start with /"
+      echo -e "${RED}no bruh, directory must start with /${R}"
       exit
    fi
 fi
@@ -163,25 +252,24 @@ fi
 if [ $yeswait == 1 ]
 then
    clear
-   echo
-   echo "Custom Setup"
-   echo "Enter wait interval (in seconds)"
-   echo "+ Wait interval is the amount of time to wait"
-   echo "  before refreshing the percentage"
+   echo -e "${LIGHTPURPLE}Custom Setup${R}"
+   echo -e "${LIGHTCYAN}Enter wait interval (in seconds)${R}"
+   echo -e "${LIGHTCYAN}Wait interval is the amount of time to wait"
+   echo -e "before refreshing the percentage${R}"
    echo 
-   echo "default wait is $wait, but i recommend more than 60"
-   echo "if you have 2GB ram or less"
+   echo -e "${CYAN}default wait is $wait, but i recommend more than 60 ${R}"
+   echo -e "${CYAN}if you have 2GB ram or less ${R}"
    echo
-   echo "leave blank for default directory"
+   echo -e "${CYAN}leave blank for default directory${YELLOW}"
    echo
    read -e -p ">>>" wait
    if [ -z $wait ]
    then
       wait=60
-      echo "Using default wait value $wait"
+      echo -e "${YELLOW}Using default wait value $wait ${R}"
       ok=1
    else
-   echo Wait value is set to $wait
+   echo -e "${YELLOW}Wait value is set to $wait ${R}"
    ok=1
    fi
 fi
@@ -194,117 +282,144 @@ then
       success=1
       sleep 1.5
    else
-      echo "enter the value in numbers only!"
+      echo -e "${LIGHTRED}enter the value in numbers only!${R}"
       exit
    fi
 fi
 
-#greeting
+#edit newlmao based on launch type
 clear
 if [ $launchedasdefault == 1 ]
 then
-   sure="default"
+   newlmao="${GREEN}default${R}"
 elif [ $launchedasdefault == 0 ]
 then
-   sure="custom"
+   newlmao="${LIGHTPURPLE}custom${R}"
 else
-   echo "error, becauselunched as def is neither 1 nor 0, also lmao"
+   echo -e "${RED}lunched as def is neither 1 nor 0${R}"
 fi
 
-#running with
-   echo
-   echo "Running with $sure settings"
-   echo
-   echo "Working Directory -> $directory"
-   echo "Refresh interval -> $wait"
-   echo
-   echo $exithint
-   echo $fishhint
-   echo $clearhint
-   echo
+#--------------------end of skipper--------------------
+fi
+
+if [[ $skipall == 1 ]]
+then
+   RED='\033[0;31m'
+   GREEN='\033[0;32m'
+   ORANGE='\033[0;33m'
+   BLUE='\033[0;34m'
+   PURPLE='\033[0;35m'
+   CYAN='\033[0;36m'
+   LIGHTGRAY='\033[0;37m'
+   DARKGRAY='\033[1;30m'
+   LIGHTRED='\033[1;31m'
+   LIGHTGREEN='\033[1;32m'
+   YELLOW='\033[1;33m'
+   LIGHTBLUE='\033[1;34m'
+   LIGHTPURPLE='\033[1;35m'
+   LIGHTCYAN='\033[1;36m'
+   WHITERED='\033[1;37m'
+   R='\033[0m'
+fi
+#logs ui
+echo
+echo -e "${LIGHTGREEN}Running with $newlmao ${LIGHTGREEN}settings ${R}"
+echo
+echo -e "${GREEN}Working Directory${CYAN} -> ${LIGHTCYAN}$directory"
+echo -e "${GREEN}Refresh interval${CYAN} -> ${LIGHTCYAN}$wait"
+echo -e "${ORANGE}$exithint${R}"
+echo -e "${ORANGE}$fishhint${R}"
+echo -e "${ORANGE}$clearhint${R}"
+echo
 
 #friendly excuse of logs
-echo logs below
-echo --------------------------------
+echo -e "${GREEN}logs below${R}"
+echo -e "${YELLOW}-------------------------------------${R}"
 
 #show a basic line of text
-if [ $textonly == 1 ]
+if [[ $textonly == 1 ]]
 then
-   echo $yrbatt
+   echo -e  "${LIGHTBLUE}[∆]starting services${R}"
+   sleep 1.1
 else
-   echo  notification service started!!
+   echo -e "${GREEN}[•]notification service started!${R}"
+   sleep 0.5
+   echo -e "${LIGHTGREEN}[+]all services started successfully${R}"
 fi
 
 #send notification; clean up; loop every $wait
-if [ $royna == 1 ]
+if [[ $royna == 1 ]]
 then
-   while [ $royna == 1 ]
+   while true
    do
-   cd $directory
-   rm -rf helper
    board1=`cat $counter_directory/$counter`
-   echo board1
-   sleep 3
    echo "scale=1; $board1 / 30000" | bc >> helper
    board2=`cat helper`
    rm -rf helper
+   echo -e "${LIGHTBLUE}[∆]requesting battery percentage"
+   sleep 1
+   echo -e "${LIGHTBLUE}[∆]sending notification${R}"
    su -lp 2000 -c "cmd notification post -S bigtext -t 'Battery Percentage' 'DecimalPercentage' '$board2'"
+   rm -rf helper
+   rm -rf $counter
+   echo -e "${GREEN}[+]notification sent successfully${R}"
+   echo -e "${LIGHTBLUE}[∆]waiting for $wait seconds"
    sleep $wait
    done
-elif [ $royna == 0 ]
+elif [[ $royna == 0 ]]
 then
    while true; do cmd notification post fag tag $board2; sleep $wait; done;
    echo
-   echo "BETA -Might not work."
-elif [ $textonly == 1 ]
+   echo -e "${LIGHTPURPLE}BETA - Might not work${R}"
+elif [[ $textonly == 1 ]]
 then
    rm -rf helper
-   board1=`cat $counter_directory/$counter`
-   echo "scale=1; $board1 / 30000" | bc >> helper
-   board2=`cat helper`
-   rm -rf helper
-   echo $board2
    letsgo=1
 else
-   echo "ERROR - NOTIFICATION NOT SENT"
-   echo "failed because royna is neither 0 nor 1"
+   echo -e "${RED}ERROR - NOTIFICATION NOT SENT${R}"
+   echo -e "${RED}failed because royna is neither 0 nor 1${R}"
 fi
 
 #enter to refresh system for text only type
 if [[ $letsgo == 1 ]]
 then
-   echo "Enter-To-Refresh service started!"
+   echo -e "${GREEN}[•]Enter-To-Refresh service started!${R}"
+   sleep 1
+   echo -e "${LIGHTGREEN}[+]all services started ${R}"
+   sleep 1.1
+   echo -e "${YELLOW}[!]press enter to proceed ${R}"
    while true
    do read popo
    if [ -z $popo ]
    then
-      rm -rf helper
+      echo -e "${LIGHTBLUE}[∆]requesting battery percentage"
       board1=`cat $counter_directory/$counter`
       echo "scale=1; $board1 / 30000" | bc >> helper
       board2=`cat helper`
       rm -rf helper
-      echo $yrbatt
-      echo $board2
+      sleep 0.2
+      echo -e "${LIGHTCYAN}[=]$yrbatt${R}"
+      echo -e "${CYAN}[%]$board2${R}"
    elif [ $popo == "exit" ]
    then
+      rm -rf helper
       exit
    elif [ $popo == "clear" ]
    then
+      echo -e "${YELLOW}[!]cleaning logs ${R}"
+      sleep 1.1
       clear
       echo
-      echo "Running with $sure settings"
+      echo -e "${LIGHTGREEN}Running with $newlmao ${LIGHTGREEN}settings ${R}"
       echo
-      echo "Working Directory -> $directory"
-      echo "Refresh interval -> $wait"
+      echo -e "${GREEN}Working Directory${CYAN} -> ${LIGHTCYAN}$directory"
+      echo -e "${GREEN}Refresh interval${CYAN} -> ${LIGHTCYAN}$wait"
+      echo -e "${ORANGE}$exithint${R}"
+      echo -e "${ORANGE}$fishhint${R}"
+      echo -e "${ORANGE}$clearhint${R}"
       echo
-      echo $exithint
-      echo $fishhint
-      echo $clearhint
-      echo
-      echo logs below
-      echo --------------------------------
-   else
-      :
+      echo -e "${GREEN}logs below${R}"
+      echo -e "${YELLOW}-------------------------------------${R}"
    fi
    done
 fi
