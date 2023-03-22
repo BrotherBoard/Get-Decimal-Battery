@@ -7,6 +7,12 @@ do `bash DecimalBattery` in some terminal to proceed
 
 **Version history**
 
+v4.0 release, getting better
+now logs are in colors optionally
+quick start with root and text only methods
+text only now supports instant refresh by clicking enter
+some more I forgot
+
 v3.0 release, nais one here
 a menu now appears, asking what to show.
 you get to sleect between root and no root notification,
