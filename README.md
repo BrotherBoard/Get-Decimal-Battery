@@ -5,6 +5,12 @@ Show a shell notification of your decimal battery level.
 
 do `bash DecimalBattery` in some terminal to proceed
 
+this is not a scam, I made this for fun but it's useful for me
+because I do like to see my charging level increases 10 times
+more precise, as an example, if you want to test your charger
+speed, then if you need to watch it for 100 seconds, you can
+watch it for only 10 seconds with this script, lol
+
 **Version history**
 
 v4.0 release, getting better
