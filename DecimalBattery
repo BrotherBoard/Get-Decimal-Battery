@@ -30,6 +30,7 @@ fulss='\033[1;31m' #LIGHTRED
 truu='\033[1;32m' #LIGHTGREEN
 
 #first one-time setup
+first=69
 iamnoob=69
 noob=`cat $sysdir/DecimalBatteryFiles/noob`
 clear
@@ -80,6 +81,9 @@ then
 echo "srarting script anyway"
 sleep 1.1
 clear
+elif [[ $first == 69 ]]
+then
+:
 else
 echo "enter y or n"
 exit
@@ -928,22 +932,24 @@ wait=`cat $sysdir/DecimalBatteryFiles/gotwait`
 quickly=0
 else
 spamlog=0
-fi
 if [[ -z $gotwait ]]
 then
+if [[ $launchedasdefault == 1 ]]
+then
+:
+else
 echo -e "${LIGHTRED}[X]wait value is invalid"
 sleep 1.5
 echo -e "${YELLOW}[!]set quick values from settings first"
 sleep 2
 clear; exit
-elif [[ $launchedasdefault == 1 ]]
-then
-:
+fi
 else
 echo -e "${LIGHTBLUE}[∆]reading $sysdir for quick values"
 sleep 0.7
 echo -e "${LIGHTBLUE}[∆]setting wait value to $wait"
 sleep 0.7
+fi
 fi
 if [[ $sus == "reading quick values..." ]]
 then
