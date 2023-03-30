@@ -14,6 +14,11 @@ watch it for only 10 seconds with this script, lol
 
 **Version history**
 
+v5.5 quick fix
+now first setup does install requirements to avoid errors,
+if already then delete the file "noob" in your settings directory,
+or go settings -> delete settings directory.
+
 v5.0 release, getting even better
 now settings menus use a while statement which can do go back in menus
 now quick start uses a file stored on your device to define value
