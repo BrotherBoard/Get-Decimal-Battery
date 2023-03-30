@@ -2,7 +2,7 @@
 #caught you reading code, dropped some tips for u
 # have fun lmao
 
-#Decimal Battery v5.0
+#Decimal Battery v5.5
 #By @BrudherBoard on Telegram
 
 #loop whole script
@@ -21,8 +21,13 @@ gotwait=`cat $sysdir/DecimalBatteryFiles/gotwait`
 colorful=`cat $sysdir/DecimalBatteryFiles/colorful`
 if [[ -z $colorful ]]
 then
-colorful=false
+colorful=False
 fi
+
+#for flashes
+R='\033[0m' #NOCOLOR
+fulss='\033[1;31m' #LIGHTRED
+truu='\033[1;32m' #LIGHTGREEN
 
 #first one-time setup
 iamnoob=69
@@ -32,9 +37,61 @@ if [[ $noob == 1 ]]
 then
 :
 else
+echo
+echo -e "Decimal Battery v5.5"
+echo -e "--------------------"
+echo -e "First time setup"
+echo
+echo -e "for script to work i have to do these commands"
+echo
+echo -e "su -c setenforce 0"
+echo -e "pkg update"
+echo -e "pkg install bc"
+echo -e "pkg install bash"
+echo
+echo -e "first cmd sets permissive mode, which allows"
+echo -e "reading power_supply located in sys/class."
+echo -e "second cmd updates packages, does not upgrade."
+echo -e "third cmd installs bc, which is for calculations."
+echo -e "forth cmd installs bash, just to make sure its latest."
+echo -e "you can say no atm, commands do exsist in about for later."
+echo
+read -e -p "proceed? (y/n) >>" first
+fi
+
+if [[ $first == y ]]
+then
+echo "setting permissive"
+su -c setenforce 0
+sleep 0.5
+echo "permissive set"
+pkg update
+echo "pkg update done"
+sleep 0.5
+pkg install bc
+echo "bc done"
+sleep 0.5
+pkg install bash
+echo "bash yes"
+sleep 1.1
+clear
+elif [[ $first == n ]]
+then
+echo "srarting script anyway"
+sleep 1.1
+clear
+else
+echo "enter y or n"
+exit
+fi
+
+if [[ $noob == 1 ]]
+then
+:
+else
 clear
 echo
-echo -e "Decimal Battery v5.0"
+echo -e "Decimal Battery v5.5"
 echo -e "--------------------"
 echo -e "Welcome"
 echo -e
@@ -53,7 +110,7 @@ if [[ $iamnoob = /* ]]
 then
 sysdir=$iamnoob
 clear
-echo "successflly set system directory to"
+echo "successflly set settings directory to"
 echo "$sysidr"
 cd $sysdir
 rm -rf DecimalBatteryFiles
@@ -82,7 +139,7 @@ then
 :
 elif [[ -z $iamnoob ]]
 then
-echo "system directory is set to default"
+echo "settings directory is set to default"
 echo "$defsysdir"
 sysdir=$defsysdir
 cd $sysdir
@@ -121,6 +178,7 @@ wait=60
 defsysdir=/sdcard
 
 #important vars
+skipall=0
 counter_directory=/sys/class/power_supply/battery
 customsetup=0
 yeswait=0
@@ -143,7 +201,7 @@ spamlog=1
 while [[ $mainmenu == 1 ]] #mainmenu while <-- [32 < 70]]
 do
 echo
-echo -e "Decimal Battery v5.0"
+echo -e "Decimal Battery v5.5"
 echo -e "--------------------"
 echo -e "Choose an action"
 echo
@@ -156,12 +214,15 @@ echo
 echo -e "X-> Exit"
 echo
 read -e -p ">>>" main
-
+if [[ $main == x ]] #lowercase to uppercase
+then
+main=X
+fi
 while [[ $main == 5 ]]
 do
 clear
 echo
-echo -e "Decimal Battery v5.0"
+echo -e "Decimal Battery v5.5"
 echo -e "--------------------"
 echo -e "About"
 echo -e
@@ -182,6 +243,12 @@ echo -e "(to accept input while waiting to refresh),"
 echo -e "it will keep spamming notification, and also"
 echo -e "even if you close the session, therefore"
 echo -e "only solution is force-stopping termux app"
+echo -e
+echo -e "some must commands:"
+echo -e "su -c setenforce 0"
+echo -e "pkg update"
+echo -e "pkg install bc"
+echo -e "pkg install bash"
 echo -e
 echo -e "please do message me on telegram: @BrudherBoard"
 echo -e "if wanna say anything, im often online"
@@ -212,17 +279,21 @@ then
    do
    clear
    echo
-   echo -e "Decimal Battery v5.0"
+   echo -e "Decimal Battery v5.5"
    echo -e "--------------------"
    echo -e "Settings"
    echo
-   echo -e "1-> Set system directory"
-   echo -e "2-> Delete system directory"
+   echo -e "1-> Set settings directory"
+   echo -e "2-> Delete settings directory"
    echo -e "3-> Set quick values"
    echo
    echo -e "X-> Go back"
    echo -e
    read -e -p ">>>" usure
+   if [[ $usure == x ]] #lowercase to uppercase
+   then
+   usure=X
+   fi
    if [[ $usure == 1 ]]
    then
    clear
@@ -251,7 +322,7 @@ then
    do
    clear
    echo
-   echo -e "Decimal Battery v5.0"
+   echo -e "Decimal Battery v5.5"
    echo -e "--------------------"
    echo -e "Set quick values"
    echo -e
@@ -261,40 +332,79 @@ then
    echo -e "X-> Go back"
    echo
    read -e -p ">>>" sqv1
+   if [[ $sqv1 == x ]] #lowercase to uppercase
+   then
+   sqv1=X
+   fi
 
+   endloop=0
    while [[ $sqv1 == 2 ]]
    do
-   clear
-   echo
-   echo "Set to true if want colored logs upon quick start,"
-   echo "else set to false"
-   echo
-   echo "current value is: $colorful"
-   echo
-   echo "1-> true"
-   echo "2-> false"
-   echo
-   echo "X-> Go back"
-   echo
+   while [[ $endloop == 0 ]]
+   do
+      clear
+      echo
+      echo "Set to True if want colored logs upon quick start,"
+      echo "else set to False"
+      echo
+      echo -e "current value is: $colorful"
+      echo
+      echo "1-> True"
+      echo "2-> False"
+      echo
+      echo "X-> Go back"
+      echo
+      if [[ $nah == 1 ]]
+      then
+      echo "..."
+      fi
+      if [[ $colorful == "${truu}True${R}" ]]
+      then
+      sleep 0.2
+      colorful="True"
+      nah=0
+      elif [[ $colorful == "${fulss}False${R}" ]]
+      then
+      sleep 0.2
+      colorful="False"
+      nah=0
+      else
+      endloop=1
+      fi
+   done
+
    read -e -p ">>>" colorful1
+   if [[ $colorful1 == x ]] #lowercase to uppercase
+   then
+   colorful1=X
+   fi
    if [[ $colorful1 == 1 ]]
    then
-   colorful="true"
+      truu='\033[1;32m'
+      colorful="${truu}True${R}"
+      nah=1
    cd $sysdir/DecimalBatteryFiles
    rm -rf colorful
    touch colorful
-   echo "true" >> colorful
+   echo "True" >> colorful
+   endloop=0
    elif [[ $colorful1 == 2 ]]
    then
-   colorful="false"
+      fulss='\033[1;31m'
+      colorful="${fulss}False${R}"
+      nah=1
    cd $sysdir/DecimalBatteryFiles
    rm -rf colorful
    touch colorful
-   echo "false" >> colorful
+   echo "False" >> colorful
    elif [[ $colorful1 == X ]]
    then
    sqv1=0
+   endloop=1
+   else
+   clear
    fi
+   endloop=0
    done
 
    if [[ $sqv1 == X ]]
@@ -302,32 +412,42 @@ then
    sqv=0
    fi
 
-   while [[ $sqv1 == 1 ]]
+   while [[ $sqv1 == 1 ]] #gotwait
    do
    clear
    echo
    echo "Enter wait interval... for quick start only,"
    echo "as it's not going to affect non-quick methods"
    echo
-   echo "current value is $gotwait"
+   echo "Current value is $gotwait"
    echo
-   read -e -p ">>>" wait
+   echo "X-> Cancel"
+   echo
    onlynumbersallowed='^[0-9]+$'
+   read -e -p ">>>" wait
    if [[ $wait =~ $onlynumbersallowed ]]
    then
-   sqv1=0
 
    cd $sysdir/DecimalBatteryFiles
    rm -rf gotwait
    touch gotwait
    echo "$wait" >> gotwait
-   echo "will quick start with wait value $wait"
-   echo "from now on"
    gotwait=$wait
-   sleep 2
+   clear
+
+   elif [[ $wait == X ]]
+   then
+   sqv1=0
+
+   elif [[ $wait == x ]]
+   then
+   sqv1=0
 
    else
-   echo "enter wait value in numbers only"
+   echo "unknown option '$wait',"
+   echo "accepted inputs are"
+   echo "Numbers [1 -> 9]"
+   echo "Letters [X - x]"
    sleep 1.5
    fi
    done
@@ -336,15 +456,15 @@ then
    while [[ $remsysdir == 1 ]]
    do
    echo
-   echo -e "Decimal Battery v5.0"
+   echo -e "Decimal Battery v5.5"
    echo -e "--------------------"
-   echo -e "Remove system directory"
+   echo -e "Remove settings directory"
    echo -e
    echo -e "Warning!"
    echo -e "this will delete your custom settings,"
    echo -e "and will revert back to default '$defsysdir'"
    echo -e
-   echo -e "system directory to be removed:"
+   echo -e "settings directory to be removed:"
    echo -e "$sysdir/DecimalBatteryFiles"
    echo -e
    echo -e "1-> Proceed"
@@ -390,19 +510,19 @@ then
    do
    oldsysdir=$sysdir
    echo
-   echo -e "Decimal Battery v5.0"
+   echo -e "Decimal Battery v5.5"
    echo -e "--------------------"
-   echo -e "Set system directory"
+   echo -e "Set settings directory"
    echo -e
-   echo -e "System directory is the directory"
+   echo -e "settings directory is the directory"
    echo -e "where script saves it's settings,"
    echo -e "will make a folder inside your"
    echo -e "desired directory, named 'DecimalBatteryFiles'"
    echo -e
-   echo -e "Current system directory is"
+   echo -e "Current settings directory is"
    echo -e "$sysdir"
    echo -e
-   echo -e "Default system directory is"
+   echo -e "Default settings directory is"
    echo -e "$defsysdir"
    echo -e "leave empty to apply it"
    echo -e
@@ -411,7 +531,7 @@ then
    then
    setsysdir=0
    clear
-   echo "system directory is set to"
+   echo "settings directory is set to"
    echo "$sysdir"
    sleep 1.5
    echo "moving your old files from old directory"
@@ -442,7 +562,7 @@ then
    sysdir="/sdcard"
    setsysdir=0
    clear
-   echo "system directory is set to default"
+   echo "settings directory is set to default"
    echo "$defsysdir"
    sleep 1.5
    echo "moving your old files from old directory"
@@ -514,7 +634,7 @@ while [[ $meme == 1 ]] #start of meme
 do
 clear
 echo
-echo -e "Decimal Battery v5.0"
+echo -e "Decimal Battery v5.5"
 echo -e "--------------------"
 echo -e "Want logs in colors?"
 echo
@@ -561,7 +681,7 @@ then
    LIGHTCYAN='\033[1;36m'
    WHITERED='\033[1;37m'
    R='\033[0m'
-   echo -e "${LIGHTGREEN}Decimal Battery v5.0${R}"
+   echo -e "${LIGHTGREEN}Decimal Battery v5.5${R}"
    echo -e "${YELLOW}--------------------${R}"
    echo -e "${GREEN}Colored logs activated, press any key to continue${YELLOW}"
    echo -e "${GREEN}Tip: for quick start setup, navigate to settings${YELLOW}"
@@ -582,7 +702,7 @@ pi=1
 while [[ $pi == 1 ]]
 do
 echo
-echo -e "${LIGHTGREEN}Decimal Battery v5.0${R}"
+echo -e "${LIGHTGREEN}Decimal Battery v5.5${R}"
 echo -e "${YELLOW}--------------------${R}"
 echo -e "${GREEN}Choose Method${R}"
 echo
@@ -647,7 +767,7 @@ do
 if [[ $omg == 1 ]]
 then
    echo
-   echo -e "${LIGHTGREEN}Decimal Battery v5.0 [${plox}${LIGHTGREEN}]"
+   echo -e "${LIGHTGREEN}Decimal Battery v5.5 [${plox}${LIGHTGREEN}]"
    echo -e "${YELLOW}---------------------------"
    echo -e "${GREEN}∆∆∆ Setup"
    echo
@@ -783,7 +903,7 @@ clear
 echo
 echo -e "${LIGHTGREEN}Running with $newlmao ${LIGHTGREEN}settings ${R}"
 echo
-echo -e "${GREEN}System Directory${CYAN} -> ${LIGHTCYAN}$sysdir"
+echo -e "${GREEN}settings directory${CYAN} -> ${LIGHTCYAN}$sysdir"
 echo -e "${GREEN}Refresh interval${CYAN} -> ${LIGHTCYAN}$wait"
 echo -e "${ORANGE}$mano"
 echo -e "${ORANGE}$exithint${R}"
@@ -816,6 +936,9 @@ sleep 1.5
 echo -e "${YELLOW}[!]set quick values from settings first"
 sleep 2
 clear; exit
+elif [[ $launchedasdefault == 1 ]]
+then
+:
 else
 echo -e "${LIGHTBLUE}[∆]reading $sysdir for quick values"
 sleep 0.7
@@ -898,7 +1021,7 @@ then
    then
       rm -rf helper
       clear
-      break
+      break 1
    elif [[ $popo == "clear" ]]
    then
       echo -e "${YELLOW}[!]cleaning logs ${R}"
@@ -907,7 +1030,7 @@ then
       echo
       echo -e "${LIGHTGREEN}Running with $newlmao ${LIGHTGREEN}settings ${R}"
       echo
-      echo -e "${GREEN}System Directory${CYAN} -> ${LIGHTCYAN}$sysdir"
+      echo -e "${GREEN}settings directory${CYAN} -> ${LIGHTCYAN}$sysdir"
       echo -e "${GREEN}Refresh interval${CYAN} -> ${LIGHTCYAN}$wait"
       echo -e "${ORANGE}$exithint${R}"
       echo -e "${ORANGE}$fishhint${R}"
