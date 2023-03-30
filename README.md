@@ -14,6 +14,13 @@ watch it for only 10 seconds with this script, lol
 
 **Version history**
 
+v5.0 release, getting even better
+now settings menus use a while statement which can do go back in menus
+now quick start uses a file stored on your device to define value
+yes it's no longer reset upon exiting.
+added settings and ability to choose directory of script settings
+or change it, also removed some unnecessary code
+
 v4.0 release, getting better
 now logs are in colors optionally
 quick start with root and text only methods
