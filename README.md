@@ -3,6 +3,7 @@ Show a shell notification of your decimal battery level.
 
 **Tested on the Galaxy A10 running Android 13 Arm64**
 
+The script uses bc, so you may need to install it first, then
 do `bash DecimalBattery` in some terminal to proceed
 
 this is not a scam, I made this for fun but it's useful for me
