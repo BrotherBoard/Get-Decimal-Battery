@@ -3,8 +3,10 @@ Show a shell notification of your decimal battery level.
 
 **Tested on the Galaxy A10 running Android 13 Arm64**
 
-The script uses bc, so you may need to install it first, then
+To start
 do `bash DecimalBattery` in some terminal to proceed
+
+The script might do some optional commands, it will prompt you with them.
 
 this is not a scam, I made this for fun but it's useful for me
 because I do like to see my charging level increases 10 times
@@ -13,6 +15,10 @@ speed, then if you need to watch it for 100 seconds, you can
 watch it for only 10 seconds with this script, lol
 
 **Version history**
+
+v5.6 Fixed bugs
+Added also some option to revert script like first launch,
+alongside with fixing some annoying errors.
 
 v5.5 quick fix
 now first setup does install requirements to avoid errors,
