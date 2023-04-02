@@ -13,6 +13,20 @@ do #do everything
 #first clean up
 clear
 
+#check SELinux
+zxc=`su -c getenforce`
+if [[ $zxc == "Enforcing" ]]
+then
+vbn="Should work"
+mkm="Won't work"
+elif [[ $zxc == "Permissive" ]]
+then
+vbn="Will not work"
+mkm="Should Work"
+else
+echo "unable to get SELinux status"
+fi
+
 #check sysdir for settings
 defsysdir=/sdcard
 cd /sdcard
@@ -43,7 +57,7 @@ echo -e "Decimal Battery v5.5"
 echo -e "--------------------"
 echo -e "First time setup"
 echo
-echo -e "for script to work i have to do these commands"
+echo -e "for script to work, I have to do these commands"
 echo
 echo -e "su -c setenforce 0"
 echo -e "pkg update"
@@ -51,11 +65,19 @@ echo -e "pkg install bc"
 echo -e "pkg install bash"
 echo
 echo -e "first cmd sets permissive mode, which allows"
-echo -e "reading power_supply located in sys/class."
+echo -e "reading power_supply located in sys/class, but"
+echo -e "may cause safetynet problems, don't worry, it has"
+echo -e "an on/off toggle in settings"
+echo
 echo -e "second cmd updates packages, does not upgrade."
+echo
 echo -e "third cmd installs bc, which is for calculations."
+echo
 echo -e "forth cmd installs bash, just to make sure its latest."
-echo -e "you can say no atm, commands do exsist in about for later."
+echo
+echo -e "you can say no, commands do exsist in about for later,"
+echo -e "for this menu to appear again, you need to reset"
+echo -e "script from settings."
 echo
 read -e -p "proceed? (y/n) >>" first
 fi
@@ -65,7 +87,7 @@ then
 echo "setting permissive"
 su -c setenforce 0
 sleep 0.5
-echo "permissive set"
+echo "permissive set, for enforce... navigate to settings"
 pkg update
 echo "pkg update done"
 sleep 0.5
@@ -172,7 +194,8 @@ else
    echo "it must start with a slash '/'"
    echo "(so cd can understand it)"
    sleep 2
-   clear; exit
+   clear
+   exit
 fi
 
 #default vars
@@ -190,11 +213,7 @@ launchedasdefault=2
 root1="null"
 success=0
 plox="plox set var of me"
-mano="Tips (only works in TextOnly Method, reason is in About)"
-exithint="Type ${WHITERED}exit${ORANGE} to go back"
-fishhint="Press ${WHITERED}enter${ORANGE} to refresh"
-yrbatt="Your battery percentage is"
-clearhint="Type ${WHITERED}clear${ORANGE} to clean up logs"
+yrbatt="${ORANGE}Your battery percentage is"
 one=1
 royna=1
 newlmao="default"
@@ -290,6 +309,8 @@ then
    echo -e "1-> Set settings directory"
    echo -e "2-> Delete settings directory"
    echo -e "3-> Set quick values"
+   echo -e "4-> Reset script"
+   echo -e "5-> Set enforce on/off"
    echo
    echo -e "X-> Go back"
    echo -e
@@ -304,6 +325,10 @@ then
    setsysdir=1
    cd /sdcard
    sysdir=`cat .locator`
+
+   elif [[ $usure == 5 ]]
+   then
+   FORCE=1
 
    elif [[ $usure == 2 ]]
    then
@@ -320,7 +345,86 @@ then
    sqv=1
    clear
 
+   elif [[ $usure == 4 ]]
+   then
+   src=1
+
    fi
+
+   while [[ $FORCE == 1 ]]
+   do
+   clear
+   echo
+   echo -e "Decimal Battery v5.5"
+   echo -e "--------------------"
+   echo -e "Enforce on/off"
+   echo
+   echo -e "Current state: $zxc"
+   echo -e "SafetyNet: $vbn"
+   echo -e "Script: $mkm"
+   echo
+   echo -e "1-> On"
+   echo -e "2-> Off"
+   echo
+   echo -e "X-> Go back"
+   echo
+   read -e -p ">>>" force1
+   if [[ $force1 == 1 ]]
+   then
+   su -c setenforce 1
+   zxc=`su -c getenforce`
+   vbn="Should Work"
+   mkm="Won't Work"
+   elif [[ $force1 == 2 ]]
+   then
+   su -c setenforce 0
+   zxc=`su -c getenforce`
+   vbn="Won't work"
+   mkm="Should work"
+   elif [[ $force1 == X ]]
+   then
+   FORCE=0
+   elif [[ $force1 == x ]]
+   then
+   FORCE=0
+   fi
+   done
+
+   while [[ $src == 1 ]]
+   do
+   clear
+   echo
+   echo -e "Decimal Battery v5.5"
+   echo -e "--------------------"
+   echo -e "Reset script"
+   echo
+   echo -e "will reset script and will be like first launch"
+   echo -e "useful if you have problems"
+   echo
+   echo -e "1->Proceed"
+   echo
+   echo -e "X->Go back"
+   echo
+   read -e -p ">>>" source
+   if [[ $source == 1 ]]
+   then
+   clear
+   sleep 0.5
+   rm -rf $sysdir/DecimalBatteryFiles
+   echo "deleted folder 'DecimalBatteryFiles'"
+   echo "located in $sysdir"
+   sleep 0.5
+   echo "done"
+   echo "now start script again"
+   exit
+   elif [[ $src == X ]]
+   then
+   src=0
+   elif [[ $src == x ]] #lowercase
+   then
+   src=0
+   fi
+   done
 
    while [[ $sqv == 1 ]]
    do
@@ -600,6 +704,7 @@ then
 elif [[ $main == 2 ]] #back to mainmenu-----------------
 then
    clear
+   textonly=0
    skipall=1
    quickly=1
    launchedasdefault=70
@@ -703,7 +808,7 @@ fi
 
 #Method Prompt
 pi=1
-while [[ $pi == 1 ]]
+while [[ $pi == 1 ]] #LMFAO
 do
 echo
 echo -e "${LIGHTGREEN}Decimal Battery v5.5${R}"
@@ -719,6 +824,7 @@ read -e -p ">>>" prompt
 if [[ $prompt == 1 ]]
 then
    clear
+   textonly=0
    root1=1
    plox="${LIGHTRED}ROOT${R}"
    royna=1
@@ -728,6 +834,7 @@ then
    clear
    plox="${LIGHTCYAN}No ROOT${R}"
    royna=0
+   textonly=0
    pi=0
    root1=0
 elif [[ $prompt == 3 ]]
@@ -736,6 +843,7 @@ then
    pi=0
    root1=3
    royna=3
+   textonly=1
    plox="${DARKGRAY}Text Only${R}"
 else
    echo "wdym $prompt ? i need a number from above"
@@ -834,7 +942,9 @@ then
    then
       wait=60
       echo -e "${YELLOW}Using default wait value $wait ${R}"
+      sleep 0.5
       pi2=0
+      launchedasdefault=0
 
    elif [[ $wait =~ $onlynumbersallowed ]]
    then
@@ -873,7 +983,7 @@ fi
 
 if [[ $skipall == 1 ]]
 then
-   if [[ $colorful == "true" ]]
+   if [[ $colorful == "True" ]]
    then
    RED='\033[0;31m'
    GREEN='\033[0;32m'
@@ -907,12 +1017,17 @@ clear
 echo
 echo -e "${LIGHTGREEN}Running with $newlmao ${LIGHTGREEN}settings ${R}"
 echo
-echo -e "${GREEN}settings directory${CYAN} -> ${LIGHTCYAN}$sysdir"
-echo -e "${GREEN}Refresh interval${CYAN} -> ${LIGHTCYAN}$wait"
-echo -e "${ORANGE}$mano"
-echo -e "${ORANGE}$exithint${R}"
-echo -e "${ORANGE}$fishhint${R}"
-echo -e "${ORANGE}$clearhint${R}"
+echo -e "${GREEN}Settings directory${CYAN} -> ${LIGHTCYAN}$sysdir"
+echo -e "${GREEN}Refresh interval${CYAN} -> ${LIGHTCYAN}$wait${R}"
+if [[ $textonly == 1 ]]
+then
+echo -e "${YELLOW}Tips"
+echo -e "Type ${WHITERED}exit${ORANGE} to go back"
+echo -e "Press ${WHITERED}enter${ORANGE} to refresh"
+echo -e "Type ${WHITERED}clear${ORANGE} to clean up logs${R}"
+else
+echo -e "${PURPLE}Made by ${CYAN}@BrudherBoard ${PURPLE}on ${LIGHTBLUE}Telegram${R}"
+fi
 echo
 
 #friendly excuse of logs
@@ -1038,9 +1153,16 @@ then
       echo
       echo -e "${GREEN}settings directory${CYAN} -> ${LIGHTCYAN}$sysdir"
       echo -e "${GREEN}Refresh interval${CYAN} -> ${LIGHTCYAN}$wait"
-      echo -e "${ORANGE}$exithint${R}"
-      echo -e "${ORANGE}$fishhint${R}"
-      echo -e "${ORANGE}$clearhint${R}"
+      echo
+      if [[ $textonly == 1 ]]
+      then
+      echo -e "${YELLOW}Tips"
+      echo -e "Type ${WHITERED}exit${ORANGE} to go back"
+      echo -e "Press ${WHITERED}enter${ORANGE} to refresh"
+      echo -e "Type ${WHITERED}clear${ORANGE} to clean up logs${R}"
+      else
+      echo -e "${PURPLE}Made by ${CYAN}@BrudherBoard ${PURPLE}on ${LIGHTBLUE}Telegram${R}"
+      fi
       echo
       echo -e "${GREEN}logs below${R}"
       echo -e "${YELLOW}-------------------------------------${R}"
