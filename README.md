@@ -16,6 +16,10 @@ watch it for only 10 seconds with this script, lol
 
 **Version history**
 
+v5.7 Added enforcing toggle
+since script will enable permissive so it can access system,
+in settings there is a switch which can edit the state of enforcing.
+
 v5.6 Fixed bugs
 Added also some option to revert script like first launch,
 alongside with fixing some annoying errors.
