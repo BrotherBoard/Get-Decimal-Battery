@@ -16,6 +16,11 @@ watch it for only 10 seconds with this script, lol
 
 **Version history**
 
+v5.8 new features
+now shows time every time you request in textonly,
+besides that I added a drop calculator to know
+how much did you battery drop and in how much seconds.
+
 v5.7 Added enforcing toggle
 since script will enable permissive so it can access system,
 in settings there is a switch which can edit the state of enforcing.
