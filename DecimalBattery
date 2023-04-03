@@ -7,7 +7,7 @@
 
 #loop whole script
 dead=1
-while [[ $dead == 1 ]] #start of while dead
+while [[ $dead == 1 ]] #start of whele dead
 do #do everything
 
 #first clean up
@@ -89,10 +89,10 @@ su -c setenforce 0
 sleep 0.5
 echo "permissive set, for enforce... navigate to settings"
 pkg update
-echo "pkg update done"
+echo "pkg update dope"
 sleep 0.5
 pkg install bc
-echo "bc done"
+echo "bc dope"
 sleep 0.5
 pkg install bash
 echo "bash yes"
@@ -221,18 +221,19 @@ mainmenu=1
 spamlog=1
 
 #main menu
-while [[ $mainmenu == 1 ]] #mainmenu while <-- [32 < 70]]
+while [[ $mainmenu == 1 ]] #mainmenu whele <-- [32 < 70]]
 do
 echo
 echo -e "Decimal Battery v5.5"
 echo -e "--------------------"
 echo -e "Choose an action"
 echo
-echo -e "1-> Start Script"
+echo -e "1-> Start script"
 echo -e "2-> Quick start [ROOT]"
 echo -e "3-> Quick start [text only]"
 echo -e "4-> Settings"
 echo -e "5-> About"
+echo -e "6-> Drop calculator"
 echo
 echo -e "X-> Exit"
 echo
@@ -241,6 +242,75 @@ if [[ $main == x ]] #lowercase to uppercase
 then
 main=X
 fi
+
+if [[ $main == 6 ]] #AMOGOS
+then
+drop_io_old=`date +"%T"`
+yes_old=`date +"%s"`
+
+prcnt=`cat /sys/class/power_supply/battery/charge_counter`
+cd $sysdir/DecimalBatteryFiles
+echo "scale=1; $prcnt / 30000" | bc >> helper2
+prcnt2=`cat helper2`
+drop_prcnt_old="$prcnt2"
+
+ratio="click enter to calculate"
+fi
+
+while [[ $main == 6 ]]
+do
+cd $sysdir/DecimalBatteryFiles && rm -rf helper2 && rm -rf helper2new
+drop_io_new=`date +"%T"`
+prcntnew=`cat /sys/class/power_supply/battery/charge_counter`
+cd $sysdir/DecimalBatteryFiles
+echo "scale=1; $prcntnew / 30000" | bc >> helper2new
+prcnt2new=`cat helper2new`
+drop_prcnt_new="$prcnt2new"
+
+yes_new=`date +"%s"`
+cd $sysdir/DecimalBatteryFiles
+rm -rf ofc
+echo "scale=1; $yes_new - $yes_old" | bc >> ofc
+yes_new2=`cat ofc`
+
+cd $sysdir/DecimalBatteryFiles
+rm -rf final
+echo "scale=1; $drop_prcnt_old - $drop_prcnt_new" | bc >> final
+ratio=`cat final`
+
+clear
+echo
+echo -e "Decimal Battery v5.5"
+echo -e "--------------------"
+echo -e "Drop calculator"
+echo
+echo -e "Time since this opened: $drop_io_old"
+echo -e "Percentage since this opened: $prcnt2"
+echo
+echo -e "Time since last refresh: $drop_io_new"
+echo -e "Percentage since last refresh: $prcnt2new"
+echo -e "Dropped by: $ratio"
+echo -e "Time passed: $yes_new2"
+echo
+echo -e "Enter-> Refresh"
+echo
+echo -e "X-> Go back"
+echo
+read -e -p ">>>" rere
+if [[ -z $rere ]]
+then
+:
+elif [[ $rere == x ]]
+then
+main=0
+clear
+elif [[ $rere == X ]]
+then
+main=0
+clear
+fi
+done
+
 while [[ $main == 5 ]]
 do
 clear
@@ -261,8 +331,8 @@ echo -e "read the script to know yourself,"
 echo -e
 echo -e "I tried to enable enter to refresh in ROOT method,"
 echo -e "but turns out Termux has a funny bug when it comes to"
-echo -e "running 2 while statements at the same time"
-echo -e "(to accept input while waiting to refresh),"
+echo -e "running 2 whele statements at the same time"
+echo -e "(to accept input whele waiting to refresh),"
 echo -e "it will keep spamming notification, and also"
 echo -e "even if you close the session, therefore"
 echo -e "only solution is force-stopping termux app"
@@ -414,7 +484,7 @@ then
    echo "deleted folder 'DecimalBatteryFiles'"
    echo "located in $sysdir"
    sleep 0.5
-   echo "done"
+   echo "dope"
    echo "now start script again"
    exit
    elif [[ $src == X ]]
@@ -585,13 +655,13 @@ then
    echo "deleting directory"
    echo "$sysdir/DecimalBatteryFiles"
    rm -rf $sysdir/DecimalBatteryFiles
-   echo "done"
+   echo "dope"
    sleep 1.5
    echo "making folder 'DecimalBatteryFiles' inside"
    echo "$defsysdir"
    cd $defsysdir
    mkdir DecimalBatteryFiles
-   echo "done"
+   echo "dope"
    sleep 1.5
    remsysdir=0
    cd DecimalBatteryFiles
@@ -650,13 +720,13 @@ then
    cd $oldsysdir/DecimalBatteryFiles #update sysdir before copy
    rm -rf sysdir
    touch sysdir
-   echo "$sysdir" >> sysdir #done updating sysdir
+   echo "$sysdir" >> sysdir #dope updating sysdir
 
    cd $oldsysdir
    cp -r DecimalBatteryFiles $sysdir
    rm -rf DecimalBatteryFiles
    sleep 1.5
-   echo "done, now settings wil be read and written"
+   echo "dope, now settings wil be read and written"
    echo "in the directory"
    echo "$sysdir"
    cd /sdcard
@@ -681,13 +751,13 @@ then
    cd $oldsysdir/DecimalBatteryFiles #update sysdir before copy
    rm -rf sysdir
    touch sysdir
-   echo "$sysdir" >> sysdir #done updating sysdir
+   echo "$sysdir" >> sysdir #dope updating sysdir
 
    cd $oldsysdir
    cp -r DecimalBatteryFiles $sysdir
    rm -rf DecimalBatteryFiles
    sleep 1.5
-   echo "done, now settings wil be read and written"
+   echo "dope, now settings wil be read and written"
    echo "in the directory"
    echo "$sysdir"
    cd /sdcard
@@ -697,9 +767,9 @@ then
    sleep 2
 
    fi
-   done #entering a directory is done
+   done #entering a directory is dope
 
-   done #sysdir settings option done
+   done #sysdir settings option dope
 
 elif [[ $main == 2 ]] #back to mainmenu-----------------
 then
@@ -714,6 +784,7 @@ then
    clear
    skipall=1
    textonly=1
+   wait="no refresh in textonly"
    royna=3
    quickly=1
    launchedasdefault=70
@@ -731,7 +802,7 @@ else
    sleep 1.5
    clear
 fi
-done #mainmenu while done <-- [70 > 32]]
+done #mainmenu whele dope <-- [70 > 32]
 
 if [[ $skipall == 1 ]] #begin of skipping biased lol
 then
@@ -844,6 +915,7 @@ then
    root1=3
    royna=3
    textonly=1
+   wait="no refresh in textonly"
    plox="${DARKGRAY}Text Only${R}"
 else
    echo "wdym $prompt ? i need a number from above"
@@ -869,6 +941,7 @@ fi
 if [[ $root1 == 3 ]]
 then
    textonly=1
+   wait="no refresh in textonly"
    clear
 fi
 
@@ -1022,7 +1095,7 @@ echo -e "${GREEN}Refresh interval${CYAN} -> ${LIGHTCYAN}$wait${R}"
 if [[ $textonly == 1 ]]
 then
 echo -e "${YELLOW}Tips"
-echo -e "Type ${WHITERED}exit${ORANGE} to go back"
+echo -e "${ORANGE}Type ${WHITERED}exit${ORANGE} to go back"
 echo -e "Press ${WHITERED}enter${ORANGE} to refresh"
 echo -e "Type ${WHITERED}clear${ORANGE} to clean up logs${R}"
 else
@@ -1136,6 +1209,9 @@ then
       board2=`cat helper`
       rm -rf helper
       sleep 0.1
+      io=`date`
+      echo -e "${LIGHTCYAN}[=]As from${R}"
+      echo -e "[~]${LIGHTGRAY}$io${R}"
       echo -e "${LIGHTCYAN}[=]$yrbatt${R}"
       echo -e "${CYAN}[%]$board2${R}"
    elif [[ $popo == "exit" ]]
@@ -1169,4 +1245,4 @@ then
    fi
    done
 fi
-done #done while dead
+done #dope whele dead
