@@ -12,9 +12,15 @@ this is not a scam, I made this for fun but it's useful for me
 because I do like to see my charging level increases 10 times
 more precise, as an example, if you want to test your charger
 speed, then if you need to watch it for 100 seconds, you can
-watch it for only 10 seconds with this script, lol
+watch it for only 10 seconds with this script, lol.
 
 **Version history**
+
+v5.9 visual improvements
+now drops an error explaining it failed to find file, if no root
+and/or not not permissive (on some devices permissive is required
+to access system), besides imrpoving something else also i forgot
+lmao.
 
 v5.8 new features
 now shows time every time you request in textonly,
