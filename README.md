@@ -16,6 +16,15 @@ watch it for only 10 seconds with this script, lol.
 
 **Version history**
 
+v6.0 beginning of the clean code
+for now it stopped making that "helper" file, insyead now it
+echos to the var directly, i will start working on using
+the bashrc file of termux instead of making files such as
+.locator in internal
+and the directory DecimalBatteryFiles in internal
+and its files, next version 6.1 will not touch your internal, but
+thats some work ok
+
 v5.9 visual improvements
 now drops an error explaining it failed to find file, if no root
 and/or not not permissive (on some devices permissive is required
