@@ -2,7 +2,7 @@
 #caught you reading code, dropped some tips for u
 # have fun lmao
 
-#Decimal Battery v5.5
+#Decimal Battery v6.0
 #By @BrudherBoard on Telegram
 
 #loop whole script
@@ -53,7 +53,7 @@ then
 :
 else
 echo
-echo -e "Decimal Battery v5.5"
+echo -e "Decimal Battery v6.0"
 echo -e "--------------------"
 echo -e "First time setup"
 echo
@@ -82,10 +82,6 @@ echo
 read -e -p "proceed? (y/n) >>" first
 fi
 
-if [[ $zxc == "Permissive" ]]
-then
-:
-else
 if [[ $first == y ]]
 then
 read -e -p "would you like to set permissive? (current: $zxc)" shallwe
@@ -123,7 +119,6 @@ else
 echo "enter y or n"
 exit
 fi
-fi
 
 if [[ $noob == 1 ]]
 then
@@ -131,7 +126,7 @@ then
 else
 clear
 echo
-echo -e "Decimal Battery v5.5"
+echo -e "Decimal Battery v6.0"
 echo -e "--------------------"
 echo -e "Welcome"
 echo -e
@@ -233,12 +228,13 @@ royna=1
 newlmao="default"
 mainmenu=1
 spamlog=1
+brc="/data/data/com.termux/files/usr/etc/bash.bashrc"
 
 #main menu
 while [[ $mainmenu == 1 ]] #mainmenu whele <-- [32 < 70]]
 do
 echo
-echo -e "Decimal Battery v5.5"
+echo -e "Decimal Battery v6.0"
 echo -e "--------------------"
 echo -e "Choose an action"
 echo
@@ -264,8 +260,7 @@ yes_old=`date +"%s"`
 
 prcnt=`cat /sys/class/power_supply/battery/charge_counter`
 cd $sysdir/DecimalBatteryFiles
-echo "scale=1; $prcnt / 30000" | bc >> helper2
-prcnt2=`cat helper2`
+prcnt2=`echo "scale=1; $prcnt / 30000" | bc`
 drop_prcnt_old="$prcnt2"
 
 ratio="click enter to calculate"
@@ -273,12 +268,11 @@ fi
 
 while [[ $main == 6 ]]
 do
-cd $sysdir/DecimalBatteryFiles && rm -rf helper2 && rm -rf helper2new
+cd $sysdir/DecimalBatteryFiles
 drop_io_new=`date +"%T"`
 prcntnew=`cat /sys/class/power_supply/battery/charge_counter`
 cd $sysdir/DecimalBatteryFiles
-echo "scale=1; $prcntnew / 30000" | bc >> helper2new
-prcnt2new=`cat helper2new`
+prcnt2new=`echo "scale=1; $prcntnew / 30000" | bc`
 drop_prcnt_new="$prcnt2new"
 
 yes_new=`date +"%s"`
@@ -294,7 +288,7 @@ ratio=`cat final`
 
 clear
 echo
-echo -e "Decimal Battery v5.5"
+echo -e "Decimal Battery v6.0"
 echo -e "--------------------"
 echo -e "Drop calculator"
 echo
@@ -329,7 +323,7 @@ while [[ $main == 5 ]]
 do
 clear
 echo
-echo -e "Decimal Battery v5.5"
+echo -e "Decimal Battery v6.0"
 echo -e "--------------------"
 echo -e "About"
 echo -e
@@ -386,7 +380,7 @@ then
    do
    clear
    echo
-   echo -e "Decimal Battery v5.5"
+   echo -e "Decimal Battery v6.0"
    echo -e "--------------------"
    echo -e "Settings"
    echo
@@ -439,7 +433,7 @@ then
    do
    clear
    echo
-   echo -e "Decimal Battery v5.5"
+   echo -e "Decimal Battery v6.0"
    echo -e "--------------------"
    echo -e "Enforce on/off"
    echo
@@ -478,7 +472,7 @@ then
    do
    clear
    echo
-   echo -e "Decimal Battery v5.5"
+   echo -e "Decimal Battery v6.0"
    echo -e "--------------------"
    echo -e "Reset script"
    echo
@@ -514,7 +508,7 @@ then
    do
    clear
    echo
-   echo -e "Decimal Battery v5.5"
+   echo -e "Decimal Battery v6.0"
    echo -e "--------------------"
    echo -e "Set quick values"
    echo -e
@@ -648,7 +642,7 @@ then
    while [[ $remsysdir == 1 ]]
    do
    echo
-   echo -e "Decimal Battery v5.5"
+   echo -e "Decimal Battery v6.0"
    echo -e "--------------------"
    echo -e "Remove settings directory"
    echo -e
@@ -702,7 +696,7 @@ then
    do
    oldsysdir=$sysdir
    echo
-   echo -e "Decimal Battery v5.5"
+   echo -e "Decimal Battery v6.0"
    echo -e "--------------------"
    echo -e "Set settings directory"
    echo -e
@@ -828,7 +822,7 @@ while [[ $meme == 1 ]] #start of meme
 do
 clear
 echo
-echo -e "Decimal Battery v5.5"
+echo -e "Decimal Battery v6.0"
 echo -e "--------------------"
 echo -e "Want logs in colors?"
 echo
@@ -875,7 +869,7 @@ then
    LIGHTCYAN='\033[1;36m'
    WHITERED='\033[1;37m'
    R='\033[0m'
-   echo -e "${LIGHTGREEN}Decimal Battery v5.5${R}"
+   echo -e "${LIGHTGREEN}Decimal Battery v6.0${R}"
    echo -e "${YELLOW}--------------------${R}"
    echo -e "${GREEN}Colored logs activated, press any key to continue${YELLOW}"
    echo -e "${GREEN}Tip: for quick start setup, navigate to settings${YELLOW}"
@@ -896,7 +890,7 @@ pi=1
 while [[ $pi == 1 ]] #LMFAO
 do
 echo
-echo -e "${LIGHTGREEN}Decimal Battery v5.5${R}"
+echo -e "${LIGHTGREEN}Decimal Battery v6.0${R}"
 echo -e "${YELLOW}--------------------${R}"
 echo -e "${GREEN}Choose Method${R}"
 echo
@@ -966,7 +960,7 @@ do
 if [[ $omg == 1 ]]
 then
    echo
-   echo -e "${LIGHTGREEN}Decimal Battery v5.5 [${plox}${LIGHTGREEN}]"
+   echo -e "${LIGHTGREEN}Decimal Battery v6.0 [${plox}${LIGHTGREEN}]"
    echo -e "${YELLOW}---------------------------"
    echo -e "${GREEN}∆∆∆ Setup"
    echo
@@ -1188,14 +1182,11 @@ then
    while true
    do
    board1=`cat $counter_directory/$counter`
-   echo "scale=1; $board1 / 30000" | bc >> helper
-   board2=`cat helper`
-   rm -rf helper
+   board2=`echo "scale=1; $board1 / 30000" | bc`
    echo -e "${LIGHTBLUE}[∆]requesting battery percentage"
    sleep 0.1
    echo -e "${LIGHTBLUE}[∆]sending notification${R}"
    su -lp 2000 -c "cmd notification post -S bigtext -t 'Battery Percentage' 'DecimalPercentage' '$board2'"
-   rm -rf helper
    rm -rf $counter
    echo -e "${GREEN}[+]notification sent successfully${R}"
    echo -e "${LIGHTBLUE}[∆]waiting for $wait seconds"
@@ -1208,7 +1199,6 @@ then
    echo -e "${LIGHTPURPLE}BETA - Might not work${R}"
 elif [[ $textonly == 1 ]]
 then
-   rm -rf helper
    letsgo=1
 else
    echo -e "${RED}ERROR - NOTIFICATION NOT SENT${R}"
@@ -1229,9 +1219,7 @@ then
    then
       echo -e "${LIGHTBLUE}[∆]requesting battery percentage"
       board1=`cat $counter_directory/$counter`
-      echo "scale=1; $board1 / 30000" | bc >> helper
-      board2=`cat helper`
-      rm -rf helper
+      board2=`echo "scale=1; $board1 / 30000" | bc`
       sleep 0.1
       io=`date`
       echo -e "${LIGHTCYAN}[=]As from${R}"
@@ -1254,7 +1242,6 @@ then
       fi
    elif [[ $popo == "exit" ]]
    then
-      rm -rf helper
       clear
       break 1
    elif [[ $popo == "clear" ]]
