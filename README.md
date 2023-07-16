@@ -1,3 +1,5 @@
+Included in BombScripts "Kit"
+
 # Get-Decimal-Battery
 Show a shell notification of your decimal battery level.
 
