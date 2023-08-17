@@ -1,3 +1,4 @@
+this no longer gets updates since i made a cleaner one, DBC
 Included in BombScripts "Kit"
 
 # Get-Decimal-Battery
@@ -17,6 +18,9 @@ speed, then if you need to watch it for 100 seconds, you can
 watch it for only 10 seconds with this script, lol.
 
 **Version history**
+
+v6.0
+abandoned current repo, the new DecimalBatteryClean works like a charm, with no packages required.
 
 v6.0 beginning of the clean code
 for now it stopped making that "helper" file, insyead now it
